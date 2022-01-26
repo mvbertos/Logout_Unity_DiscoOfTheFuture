@@ -42,7 +42,8 @@ public class PlayerSwitchSide : MonoBehaviour
         }
 
         characterPhysics.ObjectCollider.isTrigger = true;
-        playerMovement.OnJump(-1);
+        playerMovement.OnJump(-1.5f);
+        characterPhysics.NewGravity(-rb.gravityScale);
 
         //TODO: find better way to return trigger value to the object after receive flip input
         characterPhysics.OnTriggerEnd += characterPhysics.OnTriggerEnd_ResetIsTriggerValue;

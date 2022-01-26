@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] bool autoRun = false;
     [SerializeField] KeyCode up = KeyCode.W;
-    [SerializeField] KeyCode down = KeyCode.S;
+    //[SerializeField] KeyCode down = KeyCode.S;
     [SerializeField] KeyCode left = KeyCode.A;
     [SerializeField] KeyCode right = KeyCode.D;
 

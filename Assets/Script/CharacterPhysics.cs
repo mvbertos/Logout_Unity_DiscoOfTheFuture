@@ -10,6 +10,7 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     public Collider2D ObjectCollider { get { return objectCollider; } }
     private float defaultGravity;
+    public float DefaultGravity { get { return defaultGravity; } }
 
     //Callbacks
     public delegate void CollisionCallback(Collider2D other);
@@ -65,17 +66,12 @@ public class CharacterPhysics : MonoBehaviour
 
     public bool IsGravityInverted()
     {
-        bool _invertedGravity;
-        if (this.transform.position.y < 0)
-        {
-            rb.gravityScale = -defaultGravity;
-            _invertedGravity = true;
-        }
-        else
-        {
-            _invertedGravity = false;
-            rb.gravityScale = defaultGravity;
-        }
-        return _invertedGravity;
+        return rb.gravityScale < 0;
+    }
+
+    public float NewGravity(float value)
+    {
+        rb.gravityScale = value;
+        return rb.gravityScale;
     }
 }

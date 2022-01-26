@@ -14,11 +14,20 @@ public class CameraFollow : MonoBehaviour
     {
         Transform cameraTrans = Camera.main.transform;
 
-        //Follow just X position;
-        if (followX && target)
+        if (target)
         {
-            //new Vector3(Mathf.Lerp(minimum, maximum, t), 0, 0);
-            cameraTrans.position = new Vector3(target.transform.position.x, cameraTrans.position.y, cameraTrans.position.z);
+            //Follow just X position;
+            if (followX && !followY)
+            {
+                //new Vector3(Mathf.Lerp(minimum, maximum, t), 0, 0);
+                cameraTrans.position = new Vector3(target.transform.position.x, cameraTrans.position.y, cameraTrans.position.z);
+            }
+            //Follow just X position;
+            else if (followX && followY)
+            {
+                //new Vector3(Mathf.Lerp(minimum, maximum, t), 0, 0);
+                cameraTrans.position = new Vector3(target.transform.position.x, target.transform.position.y, cameraTrans.position.z);
+            }
         }
     }
 }
