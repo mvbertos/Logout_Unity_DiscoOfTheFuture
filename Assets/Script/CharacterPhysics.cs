@@ -7,7 +7,7 @@ public class CharacterPhysics : MonoBehaviour
 {
     //Physics
     [SerializeField] private Collider2D objectCollider;
-    [SerializeField] private Rigidbody2D rb;
+    private Rigidbody2D rb;
     public Collider2D ObjectCollider { get { return objectCollider; } }
     private float defaultGravity;
     public float DefaultGravity { get { return defaultGravity; } }

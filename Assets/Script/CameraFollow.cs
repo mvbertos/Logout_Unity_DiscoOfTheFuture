@@ -9,7 +9,6 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private bool followY = false;
     [SerializeField] private Transform target;
 
-
     void Update()
     {
         Transform cameraTrans = Camera.main.transform;
@@ -29,5 +28,6 @@ public class CameraFollow : MonoBehaviour
                 cameraTrans.position = new Vector3(target.transform.position.x, target.transform.position.y, cameraTrans.position.z);
             }
         }
+    
     }
 }

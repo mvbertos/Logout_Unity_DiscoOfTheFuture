@@ -17,6 +17,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 5;
     [SerializeField] private float jumpPower = 5;
 
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem[] runningEffect;
+    [SerializeField] private CameraShake cameraShake;
+    private bool shake;
+
     [Header("Physics")]
     [SerializeField] private float maxFallSpeed = 5;
     [SerializeField] private float groundCheckDistance = 5;
@@ -48,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
         //from player
         Obstacle();
 
-
         //Handle movement inputs
         //from player
         Move();
@@ -56,6 +60,46 @@ public class PlayerMovement : MonoBehaviour
         //Handle jump inputs
         //from player
         Jump();
+
+        if (Check_BottonLayers(whatIsGround) && shake)
+        {
+
+            cameraShake.shake = 0.1f;
+            cameraShake.target = this.transform;
+            shake = false;
+
+        }
+        else if (!Check_BottonLayers(whatIsGround))
+        {
+            shake = true;
+        }
+        //activate effect
+        if (CanPlayerJump() && rb.velocity.x != 0)
+        {
+            EnableParticleEffect();
+        }
+        else
+        {
+            DisableParticleEffect();
+        }
+    }
+
+    private void DisableParticleEffect()
+    {
+        foreach (var effect in runningEffect)
+        {
+            var main = effect.main;
+            main.startLifetime = 0;
+        }
+    }
+
+    private void EnableParticleEffect()
+    {
+        foreach (var effect in runningEffect)
+        {
+            var main = effect.main;
+            main.startLifetime = 1;
+        }
     }
 
     private void Obstacle()
@@ -108,6 +152,8 @@ public class PlayerMovement : MonoBehaviour
 
         //execute velocity
         rb.velocity = new Vector2(movement, rb.velocity.y);
+
+
     }
 
     #endregion
@@ -122,13 +168,15 @@ public class PlayerMovement : MonoBehaviour
 
     public bool Check_Obstacle()
     {
-        return Check_GroundLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance, whatIsObstacle);
+        return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance, whatIsObstacle);
     }
 
     public bool CanPlayerJump()
     {
-        return Check_GroundLayers(whatIsGround, () =>
+
+        return Check_BottonLayers(whatIsGround, () =>
         {
+
             Debug.Log("Ground");
         });
     }
@@ -150,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         return hit2D;
     }
 
-    private bool Check_GroundLayers(LayerMask layerMask, Action action = null)
+    private bool Check_BottonLayers(LayerMask layerMask, Action action = null)
     {
         RaycastHit2D hit2D;
 
