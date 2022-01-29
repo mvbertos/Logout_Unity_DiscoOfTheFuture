@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private CharacterPhysics characterPhysics;
 
+    [Header("Debug")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip debugAudio;
+
     //physics
     private Rigidbody2D rb;
 
@@ -106,6 +110,9 @@ public class PlayerMovement : MonoBehaviour
         if (hit)
         {
             Debug.Log("Hit ground");
+            // audioSource.clip = debugAudio;
+            // audioSource.loop = false;
+            // audioSource.Play();
             return true;
         }
         else
