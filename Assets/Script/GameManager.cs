@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(startGameInput)){
+        if (Input.GetKeyDown(startGameInput) && playerMovement && playerSwitchSide)
+        {
             EnablePLayerInputs();
         }
     }
