@@ -7,25 +7,28 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Inputs")]
-    [SerializeField] bool autoRun = false;
-    [SerializeField] KeyCode up = KeyCode.W;
+    [SerializeField] private bool autoRun = false;
+    [SerializeField] private KeyCode up = KeyCode.W;
     //[SerializeField] KeyCode down = KeyCode.S;
-    [SerializeField] KeyCode left = KeyCode.A;
-    [SerializeField] KeyCode right = KeyCode.D;
+    [SerializeField] private KeyCode left = KeyCode.A;
+    [SerializeField] private KeyCode right = KeyCode.D;
 
     [Header("Movement values")]
-    [SerializeField] float movementSpeed = 5;
-    [SerializeField] float jumpPower = 5;
+    [SerializeField] private float movementSpeed = 5;
+    [SerializeField] private float jumpPower = 5;
 
     [Header("Physics")]
-    [SerializeField] float maxFallSpeed = 5;
-    [SerializeField] float groundCheckDistance = 5;
+    [SerializeField] private float maxFallSpeed = 5;
+    [SerializeField] private float groundCheckDistance = 5;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float wallCheckDistance = 1;
+    [SerializeField] private LayerMask whatIsObstacle;
     [SerializeField] private CharacterPhysics characterPhysics;
 
     [Header("Debug")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip debugAudio;
+    private float debugTimer;
 
     //physics
     private Rigidbody2D rb;
@@ -33,10 +36,19 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        debugTimer = Time.time;
     }
 
     void Update()
     {
+        //Timer to get durations of the percurse
+        //Debug.Log(Time.time - debugTimer);
+
+        //Check for obstacles
+        //from player
+        Obstacle();
+
+
         //Handle movement inputs
         //from player
         Move();
@@ -44,6 +56,14 @@ public class PlayerMovement : MonoBehaviour
         //Handle jump inputs
         //from player
         Jump();
+    }
+
+    private void Obstacle()
+    {
+        if (Check_Obstacle())
+        {
+            GameObject.Destroy(this.gameObject);
+        }
     }
 
     private void Jump()
@@ -92,34 +112,6 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
     #region JumpMethods
-    public bool CanPlayerJump()
-    {
-        RaycastHit2D hit;
-
-        if (characterPhysics.IsGravityInverted())
-        {
-            hit = Physics2D.Raycast(this.transform.position, this.transform.up, groundCheckDistance, whatIsGround);
-            Debug.DrawRay(this.transform.position, this.transform.up * groundCheckDistance);
-        }
-        else
-        {
-            hit = Physics2D.Raycast(this.transform.position, -this.transform.up, groundCheckDistance, whatIsGround);
-            Debug.DrawRay(this.transform.position, -this.transform.up * groundCheckDistance);
-        }
-
-        if (hit)
-        {
-            Debug.Log("Hit ground");
-            // audioSource.clip = debugAudio;
-            // audioSource.loop = false;
-            // audioSource.Play();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     public void OnJump(float VerticalDirection)
     {
         if (CanPlayerJump())
@@ -127,5 +119,58 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = characterPhysics.GetVerticalVelocity(VerticalDirection * jumpPower);
         }
     }
+
+    public bool Check_Obstacle()
+    {
+        return Check_GroundLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance, whatIsObstacle);
+    }
+
+    public bool CanPlayerJump()
+    {
+        return Check_GroundLayers(whatIsGround, () =>
+        {
+            Debug.Log("Ground");
+        });
+    }
+
+    private bool Check_RaycastHit2D(Vector3 direction, float distance, LayerMask layers, out RaycastHit2D hit2D)
+    {
+        hit2D = Physics2D.Raycast(this.transform.position, direction, distance, layers);
+        Debug.DrawRay(this.transform.position, direction * distance);
+
+        return hit2D;
+    }
+    private bool Check_RaycastHit2D(Vector3 direction, float distance, LayerMask layers)
+    {
+        RaycastHit2D hit2D;
+
+        hit2D = Physics2D.Raycast(this.transform.position, direction, distance, layers);
+        Debug.DrawRay(this.transform.position, direction * distance);
+
+        return hit2D;
+    }
+
+    private bool Check_GroundLayers(LayerMask layerMask, Action action = null)
+    {
+        RaycastHit2D hit2D;
+
+        if (characterPhysics.IsGravityInverted())
+        {
+            Check_RaycastHit2D(this.transform.up, groundCheckDistance, layerMask, out hit2D);
+
+        }
+        else
+        {
+            Check_RaycastHit2D(-this.transform.up, groundCheckDistance, layerMask, out hit2D);
+        }
+
+        if (hit2D)
+        {
+            action?.Invoke();
+            return true;
+        }
+        return false;
+    }
+
     #endregion
 }
