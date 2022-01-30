@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -37,6 +38,20 @@ public class GameManager : MonoBehaviour
             EnablePLayerInputs();
             musicController.PlaySound();
         }
+
+        //If don´t find player
+        if (!playerMovement && !playerSwitchSide)
+        {
+            //Stop music
+            musicController.audioSource.Stop();
+            //reload scene 
+            Invoke("ReloadScene", 2f);
+        }
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private static void DisablePLayerInputs()

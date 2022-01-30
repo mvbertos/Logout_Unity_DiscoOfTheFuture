@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class MusicController : MonoBehaviour
 {
-    private AudioSource audioSource;
+    [HideInInspector]public AudioSource audioSource;
     [SerializeField] private AudioClip audioClip;
 
     private void Awake()

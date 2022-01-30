@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 9d286075b858595459013859b46459f8
+guid: 524f960d7f75f6a4fa5d78b9a49b2ef8
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: -2791955968776594386
     second: elementos de gameplay_0
+  - first:
+      213: 8316346773245302821
+    second: elementos de gameplay_1
   - first:
       213: -5123846215698100734
     second: elementos de gameplay_2
@@ -73,7 +76,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 320
+  spritePixelsToUnits: 345
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -133,10 +136,10 @@ TextureImporter:
       name: elementos de gameplay_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 646
-        width: 111
-        height: 306
+        x: 748
+        y: 612
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,11 +154,32 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: elementos de gameplay_1
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 612
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52890401459996370800000000000000
+      internalID: 8316346773245302821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: elementos de gameplay_2
       rect:
         serializedVersion: 2
-        x: 751
-        y: 650
+        x: 1499
+        y: 612
         width: 350
         height: 350
       alignment: 0
@@ -175,8 +199,8 @@ TextureImporter:
       name: elementos de gameplay_3
       rect:
         serializedVersion: 2
-        x: 1211
-        y: 634
+        x: 0
+        y: 196
         width: 350
         height: 350
       alignment: 0
@@ -196,8 +220,8 @@ TextureImporter:
       name: elementos de gameplay_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 240
+        x: 374
+        y: 199
         width: 350
         height: 350
       alignment: 0
@@ -217,8 +241,8 @@ TextureImporter:
       name: elementos de gameplay_5
       rect:
         serializedVersion: 2
-        x: 577
-        y: 235
+        x: 748
+        y: 197
         width: 350
         height: 350
       alignment: 0
@@ -238,8 +262,8 @@ TextureImporter:
       name: elementos de gameplay_6
       rect:
         serializedVersion: 2
-        x: 995
-        y: 0
+        x: 1122
+        y: 197
         width: 350
         height: 350
       alignment: 0
@@ -259,8 +283,8 @@ TextureImporter:
       name: elementos de gameplay_7
       rect:
         serializedVersion: 2
-        x: 1475
-        y: 193
+        x: 1491
+        y: 197
         width: 350
         height: 350
       alignment: 0
@@ -280,8 +304,8 @@ TextureImporter:
       name: elementos de gameplay_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 18
+        x: 748
+        y: 0
         width: 350
         height: 175
       alignment: 0
@@ -301,8 +325,8 @@ TextureImporter:
       name: elementos de gameplay_9
       rect:
         serializedVersion: 2
-        x: 450
-        y: 18
+        x: 1124
+        y: 0
         width: 350
         height: 175
       alignment: 0

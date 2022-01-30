@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem[] runningEffect;
+    [SerializeField] private ParticleSystem explodeEffect;
     [SerializeField] private CameraShake cameraShake;
     private bool shake;
 
@@ -120,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsObstacle())
         {
+            Debug.Log(IsObstacle());
+            //Explode and die
+            Instantiate(explodeEffect, this.transform.position, this.transform.rotation);
             GameObject.Destroy(this.gameObject);
         }
     }
@@ -182,7 +186,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsObstacle()
     {
-        return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance);
+        if (characterPhysics.ObjectCollider.isTrigger == false)
+        {
+            Debug.Log("Cheking Obstacle");
+            return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance);
+        }
+
+        return false;
     }
 
     public bool CanPlayerJump()
