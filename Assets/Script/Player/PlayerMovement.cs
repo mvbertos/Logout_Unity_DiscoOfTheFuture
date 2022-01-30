@@ -209,7 +209,6 @@ public class PlayerMovement : MonoBehaviour
     {
         hit2D = Physics2D.Raycast(this.transform.position, direction, distance, layers);
         Debug.DrawRay(this.transform.position, direction * distance);
-
         return hit2D;
     }
     private bool Check_RaycastHit2D(Vector3 direction, float distance, LayerMask layers)

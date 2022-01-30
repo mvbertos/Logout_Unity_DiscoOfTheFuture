@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     private static PlayerMovement playerMovement;
     private static PlayerSwitchSide playerSwitchSide;
+    [SerializeField] private Canvas endUIRef;
+    public static Canvas EndUIRef;
+    public static bool finished;
 
     [Header("Input")]
     [SerializeField] private KeyCode startGameInput = KeyCode.Space;
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         StartGameInput = startGameInput;
+        EndUIRef = endUIRef;
     }
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,14 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
+    {
+        if (!finished)
+            EndGame();
+
+
+    }
+
+    private void EndGame()
     {
         if (Input.GetKeyDown(startGameInput) && !playerMovement.enabled && !playerSwitchSide.enabled)
         {
@@ -49,9 +61,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ReloadScene()
+    public static void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public static void ChangeScene(string _sceneName)
+    {
+        SceneManager.LoadScene(_sceneName);
+    }
+
+    public static void FinishGame()
+    {
+        Instantiate<Canvas>(EndUIRef);
+        finished = true;
     }
 
     private static void DisablePLayerInputs()
