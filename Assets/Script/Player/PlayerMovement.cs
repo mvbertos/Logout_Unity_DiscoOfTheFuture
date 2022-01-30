@@ -61,6 +61,29 @@ public class PlayerMovement : MonoBehaviour
         //from player
         Jump();
 
+        //Make screen shake when player collides with the ground after a jump or a land
+        ScreenShake();
+
+        //Particle effects will be enabled when player is running on ground and disable when in the air or stopped.
+        ParticleEffects();
+
+    }
+
+    private void ParticleEffects()
+    {
+        //activate effect
+        if (CanPlayerJump() && rb.velocity.x != 0)
+        {
+            EnableParticleEffect();
+        }
+        else
+        {
+            DisableParticleEffect();
+        }
+    }
+
+    private void ScreenShake()
+    {
         if (Check_BottonLayers(whatIsGround) && shake)
         {
 
@@ -72,15 +95,6 @@ public class PlayerMovement : MonoBehaviour
         else if (!Check_BottonLayers(whatIsGround))
         {
             shake = true;
-        }
-        //activate effect
-        if (CanPlayerJump() && rb.velocity.x != 0)
-        {
-            EnableParticleEffect();
-        }
-        else
-        {
-            DisableParticleEffect();
         }
     }
 
@@ -104,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Obstacle()
     {
-        if (Check_Obstacle())
+        if (IsObstacle())
         {
             GameObject.Destroy(this.gameObject);
         }
@@ -166,9 +180,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool Check_Obstacle()
+    public bool IsObstacle()
     {
-        return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance, whatIsObstacle);
+        return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance);
     }
 
     public bool CanPlayerJump()
@@ -196,6 +210,23 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(this.transform.position, direction * distance);
 
         return hit2D;
+    }
+
+    private bool Check_RaycastHit2D(Vector3 direction, float distance)
+    {
+        RaycastHit2D[] hit2DList;
+
+        hit2DList = Physics2D.RaycastAll(this.transform.position, direction, distance);
+        Debug.DrawRay(this.transform.position, direction * distance);
+
+        foreach (RaycastHit2D hit2D in hit2DList)
+        {
+            if (hit2D.transform.gameObject != this.gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool Check_BottonLayers(LayerMask layerMask, Action action = null)

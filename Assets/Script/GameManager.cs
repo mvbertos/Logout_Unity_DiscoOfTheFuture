@@ -7,8 +7,14 @@ public class GameManager : MonoBehaviour
 {
     private static PlayerMovement playerMovement;
     private static PlayerSwitchSide playerSwitchSide;
+
+    [Header("Input")]
     [SerializeField] private KeyCode startGameInput = KeyCode.Space;
     public static KeyCode StartGameInput;
+
+    [Header("Sounds")]
+    [SerializeField] private MusicController musicController;
+    public static MusicController Music;
 
 
     private void Awake()
@@ -26,9 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(startGameInput) && playerMovement && playerSwitchSide)
+        if (Input.GetKeyDown(startGameInput) && !playerMovement.enabled && !playerSwitchSide.enabled)
         {
             EnablePLayerInputs();
+            musicController.PlaySound();
         }
     }
 
