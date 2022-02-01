@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
         EnableCharacterControll();
     }
 
+    private void PlayMusic()
+    {
+        musicController.PlaySound();
+    }
+
     private void EnableCharacterControll()
     {
         if (playerMovement && playerSwitchSide)
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour
             {
                 playerMovement.enabled = true;
                 playerSwitchSide.enabled = true;
+                PlayMusic();
             }
         }
     }
