@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 7835924098158350931}
   - component: {fileID: 4216432198789272469}
   m_Layer: 5
-  m_Name: EndUI
+  m_Name: WinUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

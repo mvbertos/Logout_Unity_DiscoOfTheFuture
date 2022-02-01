@@ -80,9 +80,6 @@ public class GameManager : MonoBehaviour
     {
         //Stop music
         Music.audioSource.Stop();
-
-        //Reload
-        instance.Invoke("ReloadScene", 2);
     }
 
     public static void FinishGame()
