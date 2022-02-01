@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TittleScreen.unity
     guid: 1650f68a62c0a1d4a9d3242cad885caf
   - enabled: 1
+    path: Assets/Scenes/Game_Rubi.unity
+    guid: fd54f844ed5e02c40bb24b64af110d7d
+  - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
