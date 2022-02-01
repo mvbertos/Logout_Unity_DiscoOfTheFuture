@@ -31,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask whatIsObstacle;
     [SerializeField] private CharacterPhysics characterPhysics;
 
+    [Header("Character")]
+    [SerializeField] private Character character;
+
     [Header("Debug")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip debugAudio;
@@ -122,9 +125,11 @@ public class PlayerMovement : MonoBehaviour
         if (IsObstacle())
         {
             Debug.Log(IsObstacle());
+
             //Explode and die
             Instantiate(explodeEffect, this.transform.position, this.transform.rotation);
-            GameObject.Destroy(this.gameObject);
+            character.KillCharacter();
+
         }
     }
 

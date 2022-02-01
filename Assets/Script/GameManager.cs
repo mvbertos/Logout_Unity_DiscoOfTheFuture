@@ -6,11 +6,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //Player
     private static PlayerMovement playerMovement;
     private static PlayerSwitchSide playerSwitchSide;
+
+    //UI
     [SerializeField] private Canvas endUIRef;
     public static Canvas EndUIRef;
+
+    //Game
     public static bool finished;
+    public static GameManager instance;
 
     [Header("Input")]
     [SerializeField] private KeyCode startGameInput = KeyCode.Space;
@@ -25,6 +31,8 @@ public class GameManager : MonoBehaviour
     {
         StartGameInput = startGameInput;
         EndUIRef = endUIRef;
+        Music = musicController;
+        instance = this;
     }
     // Start is called before the first frame update
     void Start()
@@ -37,37 +45,38 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!finished)
-            EndGame();
-
-
+        EnableCharacterControll();
     }
 
-    private void EndGame()
+    private void EnableCharacterControll()
     {
-        if (Input.GetKeyDown(startGameInput) && !playerMovement.enabled && !playerSwitchSide.enabled)
+        if (playerMovement && playerSwitchSide)
         {
-            EnablePLayerInputs();
-            musicController.PlaySound();
-        }
-
-        //If don´t find player
-        if (!playerMovement && !playerSwitchSide)
-        {
-            //Stop music
-            musicController.audioSource.Stop();
-            //reload scene 
-            Invoke("ReloadScene", 2f);
+            if (Input.GetKeyDown(startGameInput) && !playerMovement.enabled && !playerSwitchSide.enabled)
+            {
+                playerMovement.enabled = true;
+                playerSwitchSide.enabled = true;
+            }
         }
     }
 
-    public static void ReloadScene()
+    public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public static void ChangeScene(string _sceneName)
     {
         SceneManager.LoadScene(_sceneName);
+    }
+
+    public static void Lose()
+    {
+        //Stop music
+        Music.audioSource.Stop();
+
+        //Reload
+        instance.Invoke("ReloadScene", 2);
     }
 
     public static void FinishGame()
@@ -88,4 +97,5 @@ public class GameManager : MonoBehaviour
         playerMovement.enabled = value;
         playerSwitchSide.enabled = value;
     }
+
 }
