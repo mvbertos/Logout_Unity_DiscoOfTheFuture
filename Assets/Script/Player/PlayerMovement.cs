@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] private bool autoRun = false;
     [SerializeField] private KeyCode up = KeyCode.W;
-    //[SerializeField] KeyCode down = KeyCode.S;
+    [SerializeField] private KeyCode UpNegative = KeyCode.S;
     [SerializeField] private KeyCode left = KeyCode.A;
     [SerializeField] private KeyCode right = KeyCode.D;
 
@@ -131,9 +131,19 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         //Handle Inputs
-        if (Input.GetKey(up))
+        if (characterPhysics.IsGravityInverted())
         {
-            OnJump(1);
+            if (Input.GetKey(UpNegative))
+            {
+                OnJump(1);
+            }
+        }
+        else
+        {
+            if (Input.GetKey(up))
+            {
+                OnJump(1);
+            }
         }
     }
 

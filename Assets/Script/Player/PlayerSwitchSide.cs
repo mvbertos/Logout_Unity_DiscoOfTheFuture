@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerSwitchSide : MonoBehaviour
 {
     [Header("Inputs")]
-    [SerializeField] KeyCode down = KeyCode.S;
+    [SerializeField] private KeyCode down = KeyCode.S;
+    [SerializeField] private KeyCode downNegative = KeyCode.W;
 
     //Physics
     [Header("Physics")]
@@ -28,9 +29,19 @@ public class PlayerSwitchSide : MonoBehaviour
 
     private void ChangeSide()
     {
-        if (Input.GetKeyDown(down))
+        if (characterPhysics.IsGravityInverted())
         {
-            OnChangeSide();
+            if (Input.GetKeyDown(downNegative))
+            {
+                OnChangeSide();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(down))
+            {
+                OnChangeSide();
+            }
         }
     }
 
