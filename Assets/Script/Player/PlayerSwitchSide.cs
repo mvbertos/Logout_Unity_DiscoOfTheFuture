@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,10 @@ public class PlayerSwitchSide : MonoBehaviour
     [SerializeField] private CharacterPhysics characterPhysics;
     [SerializeField] private PlayerMovement playerMovement;
     private Rigidbody2D rb;
+
+    //Switch side 
+    [SerializeField] private float cooldown = 1f;
+    private float cooldownTime;
 
     private void Start()
     {
@@ -52,12 +57,14 @@ public class PlayerSwitchSide : MonoBehaviour
             return;
         }
 
+        //Begin timerevent 
+        //if player don´t touch anything in time 
+        //On Change will be called back
+
         characterPhysics.ObjectCollider.isTrigger = true;
         playerMovement.OnJump(-1.5f);
         characterPhysics.NewGravity(-rb.gravityScale);
 
-        //TODO: find better way to return trigger value to the object after receive flip input
         characterPhysics.OnTriggerEnd += characterPhysics.OnTriggerEnd_ResetIsTriggerValue;
     }
-
 }

@@ -124,8 +124,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsObstacle())
         {
-            Debug.Log(IsObstacle());
-
             //Explode and die
             Instantiate(explodeEffect, this.transform.position, this.transform.rotation);
             character.KillCharacter();
@@ -203,7 +201,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterPhysics.ObjectCollider.isTrigger == false)
         {
-            Debug.Log("Cheking Obstacle");
             return Check_BottonLayers(whatIsObstacle) || Check_RaycastHit2D(this.transform.right, wallCheckDistance);
         }
 
@@ -215,8 +212,7 @@ public class PlayerMovement : MonoBehaviour
 
         return Check_BottonLayers(whatIsGround, () =>
         {
-
-            Debug.Log("Ground");
+            //Do Something
         });
     }
 

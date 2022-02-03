@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TittleScreen.unity
     guid: 1650f68a62c0a1d4a9d3242cad885caf
   - enabled: 1
-    path: Assets/Scenes/Game_Rubi.unity
+    path: Assets/Scenes/Debug_Matheus.unity
     guid: fd54f844ed5e02c40bb24b64af110d7d
   - enabled: 0
     path: Assets/Scenes/Game.unity
