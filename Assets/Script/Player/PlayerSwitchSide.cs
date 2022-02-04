@@ -60,11 +60,28 @@ public class PlayerSwitchSide : MonoBehaviour
         //Begin timerevent 
         //if player don´t touch anything in time 
         //On Change will be called back
+        EnableAntiGravity();
 
-        characterPhysics.ObjectCollider.isTrigger = true;
-        playerMovement.OnJump(-1.5f);
-        characterPhysics.NewGravity(-rb.gravityScale);
+        TimerEvent.Create(CancelOnChangeSide, 0.5f, "CancelOnChangeSide");
 
         characterPhysics.OnTriggerEnd += characterPhysics.OnTriggerEnd_ResetIsTriggerValue;
+    }
+
+    private void CancelOnChangeSide()
+    {
+        if (characterPhysics && characterPhysics.ObjectCollider.isTrigger) DisableAntiGravity();
+    }
+
+    private void EnableAntiGravity()
+    {
+        characterPhysics.ObjectCollider.isTrigger = true;
+        playerMovement.OnJump(-playerMovement.JumpPower / 2);
+        characterPhysics.NewGravity(-rb.gravityScale);
+    }
+    private void DisableAntiGravity()
+    {
+        characterPhysics.ObjectCollider.isTrigger = false;
+        characterPhysics.NewGravity(-rb.gravityScale);
+
     }
 }

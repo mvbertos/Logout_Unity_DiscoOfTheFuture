@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement values")]
     [SerializeField] private float movementSpeed = 5;
     [SerializeField] private float jumpPower = 5;
+    [SerializeField] public float JumpPower { get { return jumpPower; } }
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem[] runningEffect;
