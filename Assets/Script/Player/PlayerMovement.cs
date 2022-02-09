@@ -35,18 +35,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Character")]
     [SerializeField] private Character character;
 
-    [Header("Debug")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip debugAudio;
-    private float debugTimer;
-
     //physics
     private Rigidbody2D rb;
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        debugTimer = Time.time;
     }
 
     void Update()
@@ -71,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
 
         //Particle effects will be enabled when player is running on ground and disable when in the air or stopped.
         ParticleEffects();
-
     }
 
     private void ParticleEffects()
