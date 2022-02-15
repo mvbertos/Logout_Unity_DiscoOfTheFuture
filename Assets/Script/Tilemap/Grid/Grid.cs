@@ -13,7 +13,7 @@ public class Grid<TGridObject>
         public int y;
     }
 
-    [SerializeField] private bool DebugMode = false;
+    private bool DebugMode = true;
     private int width;
     private int height;
     private float cellSize;
