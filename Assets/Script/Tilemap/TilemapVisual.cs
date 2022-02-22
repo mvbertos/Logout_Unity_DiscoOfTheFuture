@@ -47,12 +47,18 @@ public class TilemapVisual : MonoBehaviour
             };
         }
     }
-    public void SetGrid(Grid<Tilemap.TilemapObject> grid)
+    public void SetGrid(Tilemap tilemap, Grid<Tilemap.TilemapObject> grid)
     {
         this.grid = grid;
         UpdateHeatmapVisual();
 
         grid.OnGridValueChenged += Grid_OnGridValueChanged;
+        tilemap.OnLoaded += Tilemap_OnLoaded;
+    }
+
+    private void Tilemap_OnLoaded(object sender, System.EventArgs e)
+    {
+        updateMesh = true;
     }
 
     private void Grid_OnGridValueChanged(object sender, Grid<Tilemap.TilemapObject>.OnGridValueChangedEventArgs e)

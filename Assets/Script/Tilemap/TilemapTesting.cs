@@ -39,5 +39,13 @@ public class TilemapTesting : MonoBehaviour
         {
             tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Dirt;
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            tilemap.Save();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            tilemap.Load();
+        }
     }
 }
